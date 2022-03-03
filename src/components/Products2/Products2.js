@@ -45,6 +45,7 @@ class Products2 extends Component {
   }
 
   addToCart(id){
+    // NOTE: This will cause shuffle
     // let tempProducts = this.state.products
     // let updatedProducts = tempProducts.filter(product => product.id !== id)
     // let requiredProduct = tempProducts.find(product => product.id === id)
