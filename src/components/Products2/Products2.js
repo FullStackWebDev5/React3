@@ -7,7 +7,8 @@ class Products2 extends Component {
     super(props)
     console.log('Inside the constructor')
     this.state = {
-      products: []
+      products: [],
+      count: 0,
     }
   }
 
@@ -44,16 +45,44 @@ class Products2 extends Component {
     // API Calls
   }
 
+  componentDidUpdate(){
+    console.log('Inside the componentDidUpdate')
+  }
+
+  componentWillUnmount(){
+    console.log('Inside the componentWillUnmount: Products2 Component will be unmounted ...')
+  }
+
   addToCart(id){
-    // NOTE: This will cause shuffle
+    // NOTE: This will cause shuffle [NOT RECOMMENDED]
     // let tempProducts = this.state.products
     // let updatedProducts = tempProducts.filter(product => product.id !== id)
     // let requiredProduct = tempProducts.find(product => product.id === id)
     // requiredProduct.addedToCart = true
     // updatedProducts.push(requiredProduct)
 
-    let updatedProducts = this.state.products
-    updatedProducts[id-1].addedToCart = true
+    // [SUITABLE FOR THIS SITUATION - NOT RECOMMENDED]
+    // let updatedProducts = this.state.products
+    // updatedProducts[id-1].addedToCart = true
+
+    // WAY 1
+    let updatedProducts = this.state.products.map(product => {
+      if(product.id === id)
+        product.addedToCart = true
+      return product
+    })
+
+    // WAY 2
+    // let tempProducts = this.state.products
+    // let requiredIndex = tempProducts.findIndex(product => product.id === id)
+    // let updatedProducts = [
+    //   ...tempProducts.slice(0, requiredIndex),
+    //   {
+    //     ...tempProducts[requiredIndex],
+    //     addedToCart: true
+    //   },
+    //   ...tempProducts.slice(requiredIndex+1)
+    // ] 
 
     this.setState({
       products: updatedProducts
